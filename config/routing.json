@@ -1,0 +1,94 @@
+{
+  "_comment": "Which model runs each phase. 'why' is printed in the report next to every decision. Edit freely: any model id from models.json, either provider.",
+  "phases": {
+    "plan": {
+      "model": "claude-opus-5-5",
+      "effort": "high",
+      "why": "the spec and task list drive every later step; a planning mistake costs more than the planning call"
+    },
+    "design": {
+      "model": "claude-opus-5-5",
+      "effort": "high",
+      "why": "art direction (palette, type, layout ideas) sets the look of every page; taste is worth the strongest model"
+    },
+    "build": {
+      "byDifficulty": {
+        "easy": {
+          "model": "claude-haiku-5-5",
+          "effort": "medium",
+          "why": "easy task: the cheapest model; the verifier catches mistakes and repair escalates"
+        },
+        "medium": {
+          "model": "claude-sonnet-5-5",
+          "effort": "medium",
+          "why": "normal feature work: Sonnet is the cost/quality sweet spot for code"
+        },
+        "hard": {
+          "model": "claude-opus-5-5",
+          "effort": "high",
+          "why": "hard task (auth, complex state, multi-file wiring): strongest routed model"
+        }
+      },
+      "ui": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "why": "design is non-negotiable (target 9/10): every UI task gets the strongest model"
+      }
+    },
+    "repair": {
+      "chain": [
+        {
+          "model": "claude-haiku-5-5",
+          "effort": "medium",
+          "why": "cheap-first: most failures are small (import path, typo); tests decide if the fix worked"
+        },
+        {
+          "model": "claude-sonnet-5-5",
+          "effort": "medium",
+          "why": "escalation: the cheap attempt did not pass verification"
+        },
+        {
+          "model": "claude-opus-5-5",
+          "effort": "high",
+          "why": "last resort: two cheaper attempts failed"
+        }
+      ]
+    },
+    "review": {
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "fallback": "claude-sonnet-5-5",
+      "why": "a different model family reviews the code, so it catches mistakes the builder model is blind to"
+    },
+    "fix_review": {
+      "model": "claude-sonnet-5-5",
+      "effort": "medium",
+      "why": "apply reviewer findings: ordinary code edits, verified afterwards"
+    },
+    "visual_review": {
+      "model": "claude-opus-5-5",
+      "effort": "medium",
+      "fallback": "gpt-6.1-sol",
+      "why": "looks at real screenshots of the running app and scores the design like a senior product designer"
+    },
+    "design_fix": {
+      "model": "claude-opus-5-5",
+      "effort": "high",
+      "why": "closing the gap to 9/10 takes taste: the strongest model fixes design, checking each change on live screenshots"
+    }
+  },
+  "learning": {
+    "_comment": "After enough runs, a model whose verified success rate for a phase+difficulty falls below minSuccessRate is skipped for a stronger one.",
+    "minSamples": 4,
+    "minSuccessRate": 0.5
+  },
+  "limits": {
+    "agentMaxTurns": 45,
+    "maxTokensPerTurn": 32000,
+    "maxReviewFixes": 8,
+    "visualRounds": 4,
+    "visualTargetScore": 9,
+    "maxImages": 24,
+    "maxVideos": 3
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "lumexa-harness",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Multi-model coding harness: prompt in, verified Node/Express + React app out, with per-call cost tracking.",
+  "scripts": {
+    "harness": "tsx src/cli.ts",
+    "ping": "tsx src/ping.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test --test-concurrency=1 test/*.test.ts",
+    "check": "npm run typecheck && npm test",
+    "clean": "tsx src/clean.ts"
+  },
+  "engines": {
+    "node": ">=20.12"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.133.0",
+    "openai": "^7.33.0",
+    "playwright": "^1.49.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

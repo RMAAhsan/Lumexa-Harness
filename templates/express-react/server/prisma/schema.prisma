@@ -1,0 +1,11 @@
+// Data model. Add one model per entity; run `npm test -w server` to apply it to the test database.
+// Docs: https://www.prisma.io/docs/orm/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}

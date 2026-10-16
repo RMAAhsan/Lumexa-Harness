@@ -1,0 +1,14 @@
+{
+  "name": "generated-app",
+  "private": true,
+  "type": "module",
+  "workspaces": ["server", "client"],
+  "scripts": {
+    "setup": "docker compose up -d --wait && npm run db:migrate -w server && npm run db:seed -w server",
+    "dev:server": "node --watch server/src/index.js",
+    "dev:client": "npm run dev -w client",
+    "build": "npm run build -w client",
+    "start": "NODE_ENV=production node server/src/index.js",
+    "test": "npm test -w server"
+  }
+}

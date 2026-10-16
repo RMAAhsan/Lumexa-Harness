@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "App",
+    "slug": "app",
+    "scheme": "app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": { "supportsTablet": true, "bundleIdentifier": "com.example.app" },
+    "android": { "package": "com.example.app" },
+    "web": { "bundler": "metro", "output": "single" },
+    "plugins": ["expo-router", "expo-secure-store", "expo-font", "expo-video"],
+    "experiments": { "baseUrl": "" }
+  }
+}

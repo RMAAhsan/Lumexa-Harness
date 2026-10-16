@@ -1,0 +1,134 @@
+{
+  "_comment": "USD per 1M tokens, Standard tier. Verified 2026-10-15 against platform.claude.com/docs/en/about-claude/pricing and developers.openai.com/api/docs/pricing. priceVerified=false means the number is a placeholder: the report flags that model's cost as an estimate. cacheWrite = 5-minute cache write (1.25x input). cacheRead varies: 0.1x input normally, 0.05x on Opus 5.5 / Sonnet 5.5, 0.025x on Fable 5.1. OpenAI has no cache-write charge.",
+  "models": [
+    {
+      "id": "claude-haiku-5-5",
+      "provider": "anthropic",
+      "tier": "fast",
+      "priceVerified": true,
+      "price": {
+        "input": 0.1,
+        "output": 0.5,
+        "cacheRead": 0.01,
+        "cacheWrite": 0.125
+      },
+      "longContext": {
+        "aboveTokens": 100000,
+        "price": {
+          "input": 0.5,
+          "output": 2.5,
+          "cacheRead": 0.05,
+          "cacheWrite": 0.625
+        }
+      },
+      "note": "cheapest Claude: small mechanical edits, first repair attempt"
+    },
+    {
+      "id": "claude-sonnet-5-5",
+      "provider": "anthropic",
+      "tier": "standard",
+      "priceVerified": true,
+      "serverFallback": true,
+      "price": {
+        "input": 2,
+        "output": 10,
+        "cacheRead": 0.1,
+        "cacheWrite": 2.5
+      },
+      "note": "everyday coding model"
+    },
+    {
+      "id": "claude-opus-5-5",
+      "provider": "anthropic",
+      "tier": "frontier",
+      "priceVerified": true,
+      "serverFallback": true,
+      "price": {
+        "input": 4,
+        "output": 20,
+        "cacheRead": 0.2,
+        "cacheWrite": 5
+      },
+      "note": "planning, architecture, hard tasks, last-resort repair"
+    },
+    {
+      "id": "claude-fable-5-1",
+      "provider": "anthropic",
+      "tier": "max",
+      "priceVerified": true,
+      "price": {
+        "input": 10,
+        "output": 50,
+        "cacheRead": 0.25,
+        "cacheWrite": 12.5
+      },
+      "note": "most capable; not routed by default (cost)"
+    },
+    {
+      "id": "claude-opus-4-8",
+      "provider": "anthropic",
+      "tier": "frontier",
+      "priceVerified": true,
+      "routable": false,
+      "price": {
+        "input": 5,
+        "output": 25,
+        "cacheRead": 0.5,
+        "cacheWrite": 6.25
+      },
+      "note": "only appears as a server-side refusal fallback; priced so its spend is counted"
+    },
+    {
+      "id": "gpt-6.1-sol",
+      "provider": "openai",
+      "tier": "frontier",
+      "priceVerified": true,
+      "reasoning": true,
+      "price": {
+        "input": 2,
+        "output": 10,
+        "cacheRead": 0.1,
+        "cacheWrite": 0
+      },
+      "longContext": {
+        "aboveTokens": 272000,
+        "price": {
+          "input": 4,
+          "output": 15,
+          "cacheRead": 0.2,
+          "cacheWrite": 0
+        }
+      },
+      "note": "code reviewer (second opinion from another model family). Replaced gpt-5.6, which is not a real OpenAI model ID"
+    },
+    {
+      "id": "gpt-4o-mini",
+      "provider": "openai",
+      "tier": "fast",
+      "priceVerified": true,
+      "reasoning": false,
+      "price": {
+        "input": 0.15,
+        "output": 0.6,
+        "cacheRead": 0.075,
+        "cacheWrite": 0
+      },
+      "note": "cheap OpenAI option"
+    },
+    {
+      "id": "gpt-image-2",
+      "provider": "openai",
+      "tier": "standard",
+      "kind": "image",
+      "routable": false,
+      "priceVerified": true,
+      "price": {
+        "input": 5,
+        "output": 30,
+        "cacheRead": 1.25,
+        "cacheWrite": 0
+      },
+      "note": "image generation for get_image (hero photos, cards, portraits). input = text prompt tokens, output = image tokens. Replaced gpt-image-1 (shutdown 2026-10-23)"
+    }
+  ]
+}

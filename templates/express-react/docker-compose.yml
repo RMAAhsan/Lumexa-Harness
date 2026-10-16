@@ -1,0 +1,21 @@
+# Local PostgreSQL for this app: docker compose up -d
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: app
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # TCP check: during first-time init Postgres only listens on its socket,
+    # so this keeps `docker compose up --wait` waiting until it is really up.
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-U", "app", "-d", "app"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+volumes:
+  pgdata: {}
